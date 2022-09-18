@@ -1,0 +1,11 @@
+# Ignore settings since they're user-specific
+settings.json
+
+# Don't commit a locally-generated mod
+outputMod
+
+# This should be cleaned up on every run, but just in case
+temp
+
+# I don't want to deal with this right now
+PortableGit
