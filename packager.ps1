@@ -1,7 +1,7 @@
 # Assumptions we're making
 [int] $EXPECTED_EXO_FILE_COUNT = 29;
 [string] $GIT_FOLDER_NAME = ".git"
-[string] $GIT_EXE_PATH = ".\PortableGit\bin\sh.exe"
+[string] $GIT_EXE_PATH = ".\src\PortableGit\bin\sh.exe"
 
 # User settings, persisting between runs
 [string] $settingsPath = ".\settings.json"
@@ -39,7 +39,7 @@ class ExomodPackagerManifestFile {
 function diffStoriesAndSavePatch() {
     param (
         [string] $baseExoStoriesPath = "$tempPathUnix$baseStoriesFolderName",
-        [string] $modExoStoriesPath = "$tempPathUnix$moddedStoriesFolderName",
+        [string] $modExoStoriesPath = "$tempPathUnix$moddedStoriesFolderName"
     )
 
     #Write-Host "base path $baseExoStoriesPath vs $modExoStoriesPath"
@@ -230,4 +230,5 @@ $manifest.ManifestVersion = 1;
 generateMod($manifest)
 
 cleanUpTempFiles
+Write-Host -ForegroundColor Magenta "New mod created as 'outputMod' file. Rename the folder to match your mod and then share with others!"
 Exit 0
