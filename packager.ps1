@@ -39,7 +39,7 @@ function diffStoriesAndSavePatch() {
     param (
         [string] $baseExoStoriesPath = "$tempPathUnix$baseStoriesFolderName",
         [string] $modExoStoriesPath = "$tempPathUnix$moddedStoriesFolderName",
-        [string] $gitExePath = ".\PortableGit\bin\sh.exe"
+        [string] $gitExePath = ".\src\PortableGit\bin\sh.exe"
     )
 
     #Write-Host "base path $baseExoStoriesPath vs $modExoStoriesPath"
