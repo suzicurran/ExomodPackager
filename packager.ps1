@@ -1,6 +1,7 @@
 # Assumptions we're making
 [int] $EXPECTED_EXO_FILE_COUNT = 29;
 [string] $GIT_FOLDER_NAME = ".git"
+[string] $GIT_EXE_PATH = ".\PortableGit\bin\sh.exe"
 
 # User settings, persisting between runs
 [string] $settingsPath = ".\settings.json"
@@ -18,8 +19,8 @@
 [string] $outputFolderPathWindows = ".\$outputFolderName\"
 [string] $outputFolderPathUnix = "./$outputFolderName/"
 
-[string] $outputPatchName = "mod.patch"
-[string] $manifestFileName = "manifest.json"
+[string] $outputPatchName = "exomod.patch"
+[string] $manifestFileName = "exomod_manifest.json"
 
 class ExomodPackagerSettingsFile {
     [int] $SettingsVersion
@@ -39,25 +40,12 @@ function diffStoriesAndSavePatch() {
     param (
         [string] $baseExoStoriesPath = "$tempPathUnix$baseStoriesFolderName",
         [string] $modExoStoriesPath = "$tempPathUnix$moddedStoriesFolderName",
-        [string] $gitExePath = ".\src\PortableGit\bin\sh.exe"
     )
 
     #Write-Host "base path $baseExoStoriesPath vs $modExoStoriesPath"
 
     [string] $outputPatchPath = "$outputFolderPathUnix$outputPatchName"
-    & "$gitExePath" -c "git diff --no-index $baseExoStoriesPath $modExoStoriesPath > $outputPatchPath"
-}
-
-# todo: this actually goes in the loader
-function applyPatch() {
-    param (
-        #[Parameter(Mandatory = $true)]
-        [string] $targetExoStoriesPath,
-        [string] $gitExePath = ".\PortableGit\bin\sh.exe"
-    )
-
-    & "$gitExePath" -c "patch -p1 < testpatch.patch"
-
+    & "$GIT_EXE_PATH" -c "git diff --no-index $baseExoStoriesPath $modExoStoriesPath > $outputPatchPath"
 }
 
 function generateMod() {
