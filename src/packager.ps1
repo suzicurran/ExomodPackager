@@ -192,6 +192,7 @@ function getSettings() {
     # If not, create a new settings file and populate it
     if (!$isSettingsFromFile) {
         $newSettings = [ExomodPackagerSettingsFile]::new()
+        $newSettings.SettingsVersion = 1;
         $newSettings.Author = Read-Host -Prompt "What name would you like to author this mod under? This will be present in the manifest file distributed with the mod"
         $newSettings.PathToCleanStoriesFolder = Read-Host -Prompt "Please enter the path of your unmodified Stories directory. Example: $(${ENV:ProgramFiles(x86)})\Steam\steamapps\common\Exocolonist\Exocolonist_Data\StreamingAssets\Stories"
         validateStoriesFolderPath($newSettings.PathToCleanStoriesFolder)
@@ -204,8 +205,18 @@ function getSettings() {
     if ($isSettingsFromFile) { return $loadedSettings } else { return $newSettings }
 }
 
+function displayIntroText() {
+    Write-Host -ForegroundColor Magenta "Welcome to exomod-packager!"
+    Write-Host "Before using this tool remember to back up your save data, usually found in /Documents/Exocolonist. This program isn't expected to make changes to your game - that's what the loader is for - but better safe than sorry."
+    Write-Host "This program comes with ABSOLUTELY NO WARRANTY."
+    Write-Host "This is free software, and you are welcome to redistribute it under certain conditions."
+    Write-Host "See COPYRIGHT and LICENSE for details."
+}
+
 
 # ===== START =====
+displayIntroText
+
 [ExomodPackagerSettingsFile] $settings = getSettings
 [ExomodPackagerManifestFile] $manifest = [ExomodPackagerManifestFile]::new()
 $manifest.Author = $settings.Author
